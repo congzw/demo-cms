@@ -5,9 +5,11 @@
     var contentItem = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
 }
 <h1>@contentItem.DisplayText</h1>
-<p>作者: @contentItem.Author</p>
-<p>创建时间：@contentItem.CreatedUtc.UtcToLocal()</p>
-<p>修改时间：@contentItem.ModifiedUtc.UtcToLocal()</p>
+<div>
+    <span class="btn btn-outline-primary">作者: @contentItem.Author</span>
+    <span class="btn btn-outline-success">创建时间：@contentItem.CreatedUtc.UtcToLocal()</span>
+    <span class="btn btn-outline-info">修改时间：@contentItem.ModifiedUtc.UtcToLocal()</span>
+</div>
 <hr />
 <p>@await Orchard.MarkdownToHtmlAsync((string)contentItem.Content.MarkdownBodyPart.Markdown)</p>
 
