@@ -1,0 +1,20 @@
+﻿@page "/InfoPage/{slug}"
+@using OrchardSite.Helpers
+@inject OrchardCore.IOrchardHelper Orchard
+@{
+    var contentItem = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+}
+<h1>@contentItem.DisplayText</h1>
+<p>作者: @contentItem.Author</p>
+<p>创建时间：@contentItem.CreatedUtc.UtcToLocal()</p>
+<p>修改时间：@contentItem.ModifiedUtc.UtcToLocal()</p>
+<hr />
+<p>@await Orchard.MarkdownToHtmlAsync((string)contentItem.Content.MarkdownBodyPart.Markdown)</p>
+
+@Orchard.ConsoleLog(contentItem)
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
