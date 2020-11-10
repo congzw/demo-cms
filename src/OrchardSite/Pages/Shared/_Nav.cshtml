@@ -1,0 +1,25 @@
+﻿@inject OrchardCore.IOrchardHelper Orchard
+@{
+    try
+    {
+        var navItem = await Orchard.GetContentItemByHandleAsync("alias:Nav");
+        if (navItem == null)
+        {
+            <a href="~/">Home</a>
+            return;
+        }
+        else
+        {
+            @Html.Raw(navItem.Content.HtmlBodyPart.Html)
+            @Orchard.ConsoleLog(navItem)
+        }
+    }
+    catch (Exception e)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="~/">首页</a>
+        </li>
+        @*<h2>@e.Message</h2>*@
+        return;
+    }
+}
